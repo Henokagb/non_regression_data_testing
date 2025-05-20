@@ -2,7 +2,7 @@ import duckdb
 
 from ..constants import DUCKDBPATH
 
-def get_db_result(request: str) -> list[tuple[int, str]]:
+def get_db_result(request: str) -> list:
     try:
         with duckdb.connect(DUCKDBPATH) as con:
             result = con.execute(request).fetchall()
