@@ -2,7 +2,7 @@ import duckdb
 
 from ..constants import DUCKDBPATH
 
-def get_db_result(request: str) -> list:
+def get_db_result_duck(request: str) -> list:
     try:
         with duckdb.connect(DUCKDBPATH) as con:
             result = con.execute(request).fetchall()

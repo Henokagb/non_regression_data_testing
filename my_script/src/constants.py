@@ -7,3 +7,4 @@ DUCKDBPATH = os.getenv("DUCKDBPATH")
 # for bigquery
 BQ_PROJECT_ID = os.getenv("BQ_PROJECT_ID")
 BQ_DATASET = os.getenv("BQ_DATASET")
+BQ_DATASET_ID = os.getenv("BQ_DATASET_ID")
