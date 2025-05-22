@@ -1,4 +1,4 @@
-from ..constants import DB, DUCKDBPATH, BQ_PROJECT_ID
+from ..constants import DB, different_from_syntax
 from .duckdb_utils import get_db_result_duck
 from .bigquery_utils import get_db_result_bq
 
@@ -19,7 +19,10 @@ def get_columns(table) -> list:
         case "bigquery":
             print("BigQuery is not supported yet")
             exit(84)
-            #columns = get_db_result_bq(f"SELECT column_name FROM `{BQ_PROJECT_ID}.{table}`.INFORMATION_SCHEMA.COLUMNS") 
+            #columns = get_db_result_bq(f"SELECT column_name FROM `{BQ_PROJECT_ID}.{table}`.INFORMATION_SCHEMA.COLUMNS")
+        case _:
+            print("DB not supported")
+            exit(84) 
 
 
 def get_data(table1: str, table2 :str, limit :int=None, pk:str = "id", column_to_ignore:list = []) -> list:
@@ -30,9 +33,7 @@ def get_data(table1: str, table2 :str, limit :int=None, pk:str = "id", column_to
         print("The columns are not the same")
         exit(84)
 
-
-    # The syntax is not the same for duckdb and bigquery
-    different_from_syntax = "is distinct from" if DB == "duckdb" else "!="
+    
     # limit
     limit_part = f"limit {limit}" if limit else ""
     

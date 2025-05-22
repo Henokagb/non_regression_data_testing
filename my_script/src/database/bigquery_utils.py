@@ -6,8 +6,6 @@ from ..constants import BQ_PROJECT_ID
 
 
 def get_db_result_bq(request: str) -> list:
-    pass
-    """
     client = bigquery.Client(project=BQ_PROJECT_ID)
     try:
         query_job = client.query(request)
@@ -16,4 +14,3 @@ def get_db_result_bq(request: str) -> list:
     except Exception as e:
         print(f"Error: {e}")
         exit(84)
-    """

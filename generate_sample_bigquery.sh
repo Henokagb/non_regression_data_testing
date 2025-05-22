@@ -1,14 +1,17 @@
 #!/bin/bash
 
 
-PROJECT_ID="test-460520"
-# The projet need to have billing enabled otherwise you'll get
+PROJECT_ID="$1"
+TABLE1="$2"
+TABLE2="$3"
+# The projet must to have billing enabled otherwise you'll get
 #BigQuery error in query operation: Error processing job 'test-460520:bqjob_r2715ddc4eed0fe57_00000196f4b361e9_1': Billing has not been enabled for this project. Enable billing at
+# In my case, it's not
 
 
 
 bq query --project_id=$PROJECT_ID --use_legacy_sql=false "
-INSERT INTO \`base.table1\` (id, last_seen_at, alumnized_at, email_stop, updated_at, reset_password_token, reset_password_sent_at)
+INSERT INTO \`$TABLE1\` (id, last_seen_at, alumnized_at, email_stop, updated_at, reset_password_token, reset_password_sent_at)
 VALUES
 (1, '2023-10-01 12:00:00', '2024-01-01 09:30:00', TRUE,  '2024-05-10 17:15:00', 'token123', '2024-05-10 17:20:00'),
 (2, '2023-11-05 14:45:00', NULL,                  FALSE, '2024-05-11 12:00:00', NULL,       NULL),
@@ -20,7 +23,7 @@ VALUES
 
 
 bq query --project_id=$PROJECT_ID --use_legacy_sql=false "
-INSERT INTO \`intra.table2\` (id, last_seen_at, alumnized_at, email_stop, updated_at, reset_password_token, reset_password_sent_at)
+INSERT INTO \`$TABLE1` (id, last_seen_at, alumnized_at, email_stop, updated_at, reset_password_token, reset_password_sent_at)
 VALUES
 (1, '2023-10-01 12:00:00', '2024-01-01 09:30:00', TRUE,  '2024-05-10 17:15:00', 'token123', '2024-05-10 17:20:00'),
 (2, '2023-11-05 14:45:00', '2024-03-01 10:00:00', FALSE, '2024-05-11 12:00:00', 'token456', '2024-05-11 12:10:00'),
