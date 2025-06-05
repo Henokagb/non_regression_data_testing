@@ -9,6 +9,7 @@ class param_list(BaseModel):
     limit: Optional[int] = None
     pk_cols: Optional[str] = None
     ignore_cols: Optional[str] = None
+    scale_casts: Optional[str] = None
 
 def get_args() -> dict:
     parser = argparse.ArgumentParser()
@@ -17,6 +18,7 @@ def get_args() -> dict:
     parser.add_argument("--limit", type=int, required=False)
     parser.add_argument("--pk-cols", type=str, required=False)
     parser.add_argument("--ignore-cols", type=str, required=False)
+    parser.add_argument("--scale-casts", type=str, required=False)
     
     args = vars(parser.parse_args())
     

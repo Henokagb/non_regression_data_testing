@@ -17,8 +17,11 @@ if __name__ == "__main__":
         params["pk"] = args["pk-cols"]
     if args.get("ignore_cols") is not None:
         params["column_to_ignore"] = args["ignore_cols"].split(",")
+    if args.get("scale-casts") is not None:
+        params["scale_casts"] = args["scale-casts"]
 
     if is_valid_args(args):
+        print(params)
         data = get_data(**params)
         output = construct_output(data)
         print(output)
