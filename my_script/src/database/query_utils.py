@@ -11,11 +11,16 @@ def send_query(request: str) -> list:
         print("DB not supported")
         exit(84)
 
-def get_columns(table) -> list:
+def get_common_columns(table1:str, table2:str) -> list:
     match DB:
         case "duckdb":
-            columns = get_db_result_duck(f"SELECT name FROM pragma_table_info('{table}');")
-            return [col[0] for col in columns]
+            columns1 = get_db_result_duck(f"SELECT name FROM pragma_table_info('{table1}');")
+            columns2 = get_db_result_duck(f"SELECT name FROM pragma_table_info('{table2}');")
+            
+            columns_t1 = [col[0] for col in columns1]
+            columns_t2 = [col[0] for col in columns2]
+
+            return [col for col in columns_t1 if col in columns_t2]
         case "bigquery":
             print("BigQuery is not supported yet")
             exit(84)
@@ -47,12 +52,8 @@ def cast_as_type(table_alias:str, column_name: str, option_value: str) -> str:
 def get_data(table1: str, table2 :str, limit :int=None, pk:str = "id", column_to_ignore:list = [], scale_casts:str ="") -> list:
     
     # I Get and check Column list
-    column_list = get_columns(table1)
-    if column_list != get_columns(table2):
-        print("The columns are not the same")
-        exit(84)
+    column_list = get_common_columns(table1, table2)
 
-    
     # limit
     limit_part = f"limit {limit}" if limit else ""
     
