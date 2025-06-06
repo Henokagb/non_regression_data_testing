@@ -59,7 +59,7 @@ export BQ_TABLE1="dataset1.table1"
 export BQ_TABLE2="dataset2.table2"
 ```
 
-**Note!!!:** For bigquery, I did not test the script on a real project since the free tiers needs a billing account to insert data. The script needs to be improved for this part.
+**Note!!!:** For bigquery, I did not test the script on a real project since the free tiers needs a billing account to insert data. The script may need to be improved for this part.
 
 ## Run the script
 
