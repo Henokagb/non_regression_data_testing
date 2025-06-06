@@ -13,10 +13,12 @@ if __name__ == "__main__":
     }
     if args.get("limit") is not None:
         params["limit"] = args["limit"]
-    if args.get("pk-cols") is not None:
-        params["pk"] = args["pk-cols"]
+    if args.get("pk_cols") is not None:
+        params["pk"] = args["pk_cols"]
     if args.get("ignore_cols") is not None:
         params["column_to_ignore"] = args["ignore_cols"].split(",")
+    if args.get("scale_casts") is not None:
+        params["scale_casts"] = args["scale_casts"]
 
     if is_valid_args(args):
         data = get_data(**params)
