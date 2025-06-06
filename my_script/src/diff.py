@@ -16,6 +16,6 @@ def construct_output(result: list) -> str:
         diff_list.append(get_diff(diff))
     
     # I transform each diff dict into a string
-    diff_list = [json.dumps(diff) for diff in diff_list if diff["id"] is not None]
+    diff_list = [json.dumps(diff) for diff in diff_list]
     
     return "\n".join(diff_list)

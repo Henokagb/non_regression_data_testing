@@ -31,7 +31,11 @@ def cast_as_type(table_alias:str, column_name: str, option_value: str) -> str:
 
     column_types = option_value.split(",")
     for assignment in column_types:
-        column, type = assignment.split("=")[0], assignment.split("=")[1]
+        try:
+            column, type = assignment.split("=")[0], assignment.split("=")[1]
+        except IndexError:
+            print(f"Error in scale_casts option: {assignment}. Expected format is 'column_name=type'.")
+            exit(84)
         if column == column_name:
             return f"cast({table_alias}.{column} as {type})"
     
@@ -61,8 +65,10 @@ def get_data(table1: str, table2 :str, limit :int=None, pk:str = "id", column_to
         for column in column_list if column not in column_to_ignore and column != pk])
 
     # Example of a result of the select: 5, '{"last_seen_at":["2024-02-10 09:10:00", "2024-02-10 09:00:00"]}'
-
-    request = f"select {select} from {table1} as t1 join {table2} as t2 using({pk}) {limit_part}"
+    where = " or ".join([f"{cast_as_type('t1', column, scale_casts)} {different_from_syntax} {cast_as_type('t2', column, scale_casts)}" for column in column_list if column not in column_to_ignore and column != pk])
+    
+    request = f"select {select} from {table1} as t1 join {table2} as t2 using({pk}) where {where} {limit_part}"
+    
     result = send_query(request)
 
     # The result is a list of tuples
