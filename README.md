@@ -1,6 +1,6 @@
 # non_regression_data_testing
 
-Non-regression black box tests
+Non-regression black box tests for data pipelines
 
 This script compares all rows of two tables to identify unexpected changes, missing or additional rows, value differences, etc.
 
@@ -64,7 +64,7 @@ export BQ_TABLE2="dataset2.table2"
 ## Run the script
 
 ```bash
-python my_script/main.py [--limit LIMIT] [--pk-cols PK_COLS] [--ignore-cols COL1,COL2] table1 table2
+python my_script/main.py [--limit LIMIT] [--pk-cols PK_COLS] [--ignore-cols COL1,COL2] [--scale-casts column=TYPE] table1 table2
 ```
 
 ### Options
@@ -72,6 +72,7 @@ python my_script/main.py [--limit LIMIT] [--pk-cols PK_COLS] [--ignore-cols COL1
 - `--limit`: maximum number of differences to display
 - `--pk-cols`: primary key column
 - `--ignore-cols`: comma-separated list of columns to ignore
+- `--scale-casts`: cast columns to a common type before comparison
 - `-h`, `--help`: show help message
 
 ### Example
