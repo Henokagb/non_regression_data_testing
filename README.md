@@ -1,4 +1,4 @@
-# non_regression_data_testing
+# Non regression data testing
 
 Non-regression black box tests for data pipelines
 
